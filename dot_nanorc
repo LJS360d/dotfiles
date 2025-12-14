@@ -1,0 +1,70 @@
+##
+## Comprehensive .nanorc Configuration File
+## Designed for portability and improved usability.
+##
+
+# --------------------------------------------------------------------------
+# 1. CORE BEHAVIOR AND USABILITY
+# --------------------------------------------------------------------------
+
+# Enable the most useful features for configuration file editing.
+
+# Always show the cursor position in the status bar (line and column).
+set constantshow
+
+# Set a persistent history for search/replace strings.
+set historylog
+
+# Keep the search/replace prompt open for multiple uses.
+set regexp
+
+# Use soft wrapping instead of hard line breaks.
+set softwrap
+
+# Show the line number in the left margin. ESSENTIAL.
+set linenumbers
+
+# --------------------------------------------------------------------------
+# 2. FILE SAVING AND BACKUP
+# --------------------------------------------------------------------------
+
+# Create a backup file when saving (e.g., file.txt~).
+# This is a good safety net for config editing.
+set backup
+
+# Saves the backup file in a dedicated directory.
+# This prevents cluttering the directory with '~' files.
+# Make sure to create this directory first: mkdir -p ~/.nano/backups
+set backupdir "~/.nano/backups"
+
+# --------------------------------------------------------------------------
+# 3. TYPING AND INDENTATION
+# --------------------------------------------------------------------------
+
+# Use spaces instead of tabs. Recommended for modern coding and config files.
+set tabstospaces
+
+# Set the tab width to 4 characters.
+set tabsize 4
+
+# Use auto-indentation: pressing Enter indents the new line to the same
+# indentation level as the previous line.
+set autoindent
+
+# Use "smart" indentation for C-like files, but general autoindent is better
+# for config files. Keep this commented unless you code extensively in Nano.
+# set c-indent
+
+# --------------------------------------------------------------------------
+# 4. COLOR SYNTAX HIGHLIGHTING
+# --------------------------------------------------------------------------
+
+# Nano uses "include" statements to load syntax rules from external files.
+# These files are typically found in /usr/share/nano/ on Linux distros.
+# Including common syntaxes ensures good coloring for most config files.
+
+# NOTE: The paths below are standard on most Linux systems.
+# If you get an error, check the exact path on your system (e.g., /usr/share/nano/*.nanorc)
+
+## Generic and common file types
+include "/usr/share/nano/*.nanorc"

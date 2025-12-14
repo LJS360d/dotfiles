@@ -1,0 +1,219 @@
+# Configuration file for Alacritty
+#
+# This file contains almost every possible configuration option for Alacritty,
+# with all options commented out. To enable a setting, uncomment the line
+# and adjust the value as desired.
+#
+# Alacritty configuration uses the TOML format.
+#
+# --- General Settings ---
+
+# [shell]
+# # Command to execute when the terminal is started.
+# # Default: /usr/bin/zsh (or your default shell)
+# # program = "/usr/bin/bash"
+# # args = ["--login"]
+
+# [env]
+# # Environment variables to be set.
+# # TERM is set to alacritty by default.
+# # WINIT_HIDPI_FACTOR = "1.0"
+# # COLORTERM = "truecolor"
+
+# [selection]
+# # Mouse double click select word, triple click select line.
+# # semantic_escape_chars = ",│`|:\"'()[]{}<>"
+# # save_to_clipboard = false
+# # mouse = "Cell" # Can be Cell, Semantic, or Broad
+
+# [cursor]
+# # Cursor style.
+# # style = "Block" # Can be Block, Underline, or Beam
+# # blink_interval = 500
+# # thickness = 0.15
+
+# [debug]
+# # Enable logging and specify log level.
+# # log_level = "Warn" # Can be Off, Error, Warn, Info, Debug, Trace
+# # render_timer = false
+# # print_events = false
+# # highlight_selection_region = false
+
+# # --- Window Settings ---
+[window]
+# # Window dimensions (columns/lines).
+# # dimensions = { columns = 80, lines = 24 }
+
+# # Window startup position (offset from top-left).
+# # position = { x = 0, y = 0 }
+
+# # Padding around the terminal content.
+padding = { x = 10, y = 10 }
+
+# # Window title.
+# # title = "Alacritty"
+
+# # Opacity (0.0 to 1.0). Requires compositor.
+opacity = 0.85
+
+# # Blur background (requires compositor and opacity < 1.0).
+# blur = false
+
+# # Startup mode.
+# # startup_mode = "Windowed" # Can be Windowed or Maximized or Fullscreen
+
+# # Igonre border clicks.
+# # ignore_border = false
+
+# # Class (for window managers).
+# # class = { instance = "Alacritty", general = "Alacritty" }
+
+# # Persistent scrolling.
+# # history = 10000
+
+# # Window resize increments.
+# # dynamic_padding = false
+
+# # Tab visibility.
+# # tab = { enabled = false }
+
+# # --- Font Settings ---
+
+# [font]
+# # Normal font family.
+# # normal = { family = "monospace", style = "Regular" }
+
+# # Bold font family. If not set, uses the normal family with bold style.
+# # bold = { family = "monospace", style = "Bold" }
+
+# # Italic font family. If not set, uses the normal family with italic style.
+# # italic = { family = "monospace", style = "Italic" }
+
+# # Size of the font in points.
+# # size = 11.0
+
+# # Offset to be applied to all glyphs.
+# # offset = { x = 0, y = 0 }
+
+# # Glyph properties.
+# # glyph_offset = { x = 0, y = 0 }
+
+# # Use built-in font shaper (requires font feature support).
+# # use_thin_strokes = false
+
+# # --- Colors Settings ---
+
+# [colors]
+# # Default text and background colors.
+# # primary = { background = "0x000000", foreground = "0xFFFFFF" }
+
+# # Cursor colors.
+# # cursor = { text = "0xFFFFFF", cursor = "0xFFFFFF" }
+
+# # Selection colors.
+# # selection = { text = "0xFFFFFF", background = "0x40C7AD" }
+
+# # Normal colors (Black, Red, Green, Yellow, Blue, Magenta, Cyan, White).
+# # [colors.normal]
+# # black = "0x000000"
+# # red = "0xFF0000"
+# # green = "0x00FF00"
+# # yellow = "0xFFFF00"
+# # blue = "0x0000FF"
+# # magenta = "0xFF00FF"
+# # cyan = "0x00FFFF"
+# # white = "0xFFFFFF"
+
+# # Bright colors.
+# # [colors.bright]
+# # black = "0x808080"
+# # red = "0xFF8080"
+# # green = "0x80FF80"
+# # yellow = "0xFFFF80"
+# # blue = "0x8080FF"
+# # magenta = "0xFF80FF"
+# # cyan = "0x80FFFF"
+# # white = "0xFFFFFF"
+
+# # Indexed colors (for applications using the 256-color palette).
+# # [colors.indexed]
+# # colors = [
+# #   { index = 16, color = "0xD70000" },
+# #   { index = 17, color = "0xD7005F" },
+# #   # ... add more indexed colors ...
+# # ]
+
+# # Dim colors.
+# # [colors.dim]
+# # black = "0x4D4D4D"
+# # red = "0xC50F1F"
+# # green = "0x13A10E"
+# # yellow = "0xC19C00"
+# # blue = "0x0A2B4E"
+# # magenta = "0x5C007A"
+# # cyan = "0x00C5C7"
+# # white = "0xCCCCCC"
+
+# # --- Visual Settings ---
+
+# # Adjusts the cell dimensions.
+# # [draw_bold_text_with_bright_colors]
+# # enabled = true
+
+# # Cell offset to adjust spacing.
+# # [bell]
+# # animation = "EaseOutExpo" # Can be None, EaseOutExpo, etc.
+# # duration = 0
+
+# # [scrolling]
+# # # Amount of history to keep (same as window.history).
+# # history = 10000
+
+# # # Scroll multiplier for mouse wheel.
+# # multiplier = 3
+
+# # --- Keybindings and Mouse Bindings ---
+
+# # NOTE: Binding Ctrl+C to Copy will override the standard terminal interrupt signal (SIGINT).
+# # You may need to use Ctrl+Shift+C (or another binding) to stop running processes.
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+# [[keyboard.bindings]]
+# key = "V"
+# mods = "Control|Shift"
+# action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+chars = "\u0003"
+
+# [[keyboard.bindings]]
+# key = "Key0"
+# mods = "Control"
+# action = "ResetFontSize"
+
+# [[keyboard.bindings]]
+# key = "Equals"
+# mods = "Control"
+# action = "IncreaseFontSize"
+
+# [[keyboard.bindings]]
+# key = "Minus"
+# mods = "Control"
+# action = "DecreaseFontSize"
+
+# # Mouse bindings.
+# # [[mouse.bindings]]
+# # button = "Middle"
+# # mods = "None"
+# # action = "PasteSelection"
