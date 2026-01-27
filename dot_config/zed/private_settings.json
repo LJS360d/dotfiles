@@ -1,0 +1,56 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "disable_ai": false,
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null,
+      "enterprise_uri": null,
+    },
+    "enabled_in_text_threads": false,
+  },
+  "project_panel": {
+    "hide_gitignore": false,
+  },
+  "icon_theme": "Colored Zed Icons Theme Dark",
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha - No Italics",
+  },
+  "agent": {
+    "profiles": {
+      "testing": {
+        "name": "Testing",
+        "tools": {
+          "read_file": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
+    "play_sound_when_agent_done": true,
+    "enable_feedback": false,
+    "always_allow_tool_actions": false,
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+    },
+    "enabled": true,
+  },
+  "features": {
+    "edit_prediction_provider": null,
+  },
+}
