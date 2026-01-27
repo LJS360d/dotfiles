@@ -1,0 +1,5 @@
+[user]
+	email = luca.lencioni09@gmail.com
+	name = LJS360d
+[alias]
+	graph = log --all --decorate --oneline --graph
