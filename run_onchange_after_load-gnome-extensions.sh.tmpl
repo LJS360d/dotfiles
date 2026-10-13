@@ -1,0 +1,7 @@
+#!/bin/sh
+# gnome_extensions.conf hash: {{ include "gnome_extensions.conf" | sha256sum }}
+# Reruns when gnome_extensions.conf changes. Refresh it with:
+#   dconf dump /org/gnome/shell/extensions/ > $(chezmoi source-path)/gnome_extensions.conf
+command -v dconf >/dev/null 2>&1 || exit 0
+[ -n "$DBUS_SESSION_BUS_ADDRESS" ] || exit 0
+dconf load /org/gnome/shell/extensions/ < "{{ .chezmoi.sourceDir }}/gnome_extensions.conf"

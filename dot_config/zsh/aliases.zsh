@@ -1,0 +1,54 @@
+# Aliases — add yours here.
+
+# Docker
+alias docker-deepclean='docker system prune -a --volumes -f'
+
+# Editor / clipboard
+alias zed='zeditor'
+alias clip='xclip -selection clipboard'
+
+# Listing & navigation
+if (( $+commands[eza] )); then
+  alias ls='eza --group-directories-first --icons=auto'
+  alias ll='eza -lh --group-directories-first --icons=auto --git'
+  alias la='eza -lha --group-directories-first --icons=auto --git'
+  alias lt='eza --tree --level=2 --icons=auto'
+else
+  alias ll='ls -lh --color=auto'
+  alias la='ls -lha --color=auto'
+fi
+alias l='ls -CF --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+(( $+commands[bat] )) && alias cat='bat --paging=never --style=plain'
+
+# Pacman
+alias update='sudo pacman -Syu'
+alias install='sudo pacman -S'
+alias search='pacman -Ss'
+alias remove='sudo pacman -Rs'
+alias rmpkg='sudo pacman -Rsn'
+alias clean='sudo pacman -Sc'
+alias cleanch='sudo pacman -Scc'
+alias fixpacman='sudo rm /var/lib/pacman/db.lck'
+alias jctl='journalctl -p 3 -xb'
+
+# Safety & convenience
+alias c='clear'
+alias grep='grep --color=auto'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -i'
+alias please='sudo'
+alias make="make -j$(nproc)"
+alias ninja="ninja -j$(nproc)"
+alias n='ninja'
+
+# Modern replacements (only if installed)
+(( $+commands[duf] ))   && alias df='duf'
+(( $+commands[dust] ))  && alias du='dust'
+(( $+commands[procs] )) && alias ps='procs'
+(( $+commands[btop] ))  && alias top='btop'
+(( $+commands[yazi] ))  && alias y='yazi'
+(( $+commands[rg] ))    && alias rgi='rg -i'
+(( $+commands[tldr] ))  && alias help='tldr'

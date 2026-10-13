@@ -1,55 +1,50 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# ~/.zshrc — thin entrypoint. Edit the pieces in ~/.config/zsh/, plugins in ~/.config/sheldon/plugins.toml
+# Everything slow (plugin loader, prompt, mise, zoxide, fzf) is cached + zcompiled; caches refresh themselves.
+
+typeset -U path fpath
+path=(~/.local/bin $path)
+
+ZDOTDIR_CFG=${XDG_CONFIG_HOME:-~/.config}/zsh
+ZCACHE=${XDG_CACHE_HOME:-~/.cache}/zsh
+[[ -d $ZCACHE ]] || mkdir -p $ZCACHE
+
+# source file, (re)compiling to .zwc when stale (zsh auto-prefers fresh .zwc)
+_zsrc() {
+  [[ -r $1 ]] || return
+  [[ $1.zwc -nt $1 ]] || zcompile $1 2>/dev/null
+  source $1
+}
+
+# cache output of `<cmd> <args>` as <name>.zsh, rebuild when the binary changes
+_zcache() {
+  local name=$1 bin=${commands[$2]} f=$ZCACHE/$1.zsh; shift
+  [[ -n $bin ]] || return
+  if [[ ! -s $f || $bin -nt $f ]]; then "$@" >| $f 2>/dev/null; zcompile $f; fi
+  source $f
+}
+
+[[ ~/.zshrc.zwc -nt ~/.zshrc ]] || zcompile ~/.zshrc 2>/dev/null
+
+_zsrc $ZDOTDIR_CFG/options.zsh
+_zsrc $ZDOTDIR_CFG/aliases.zsh
+
+# plugins (sheldon): generated script cached; regenerates when plugins.toml changes.
+# compinit runs inside it (see plugins.toml).
+if (( $+commands[sheldon] )); then
+  _sheldon_toml=${XDG_CONFIG_HOME:-~/.config}/sheldon/plugins.toml
+  if [[ ! -s $ZCACHE/plugins.zsh || $_sheldon_toml -nt $ZCACHE/plugins.zsh ]]; then
+    sheldon source >| $ZCACHE/plugins.zsh && zcompile $ZCACHE/plugins.zsh
+  fi
+  source $ZCACHE/plugins.zsh
+  unset _sheldon_toml
 fi
 
-# Use powerline
-USE_POWERLINE="true"
-# Has weird character width
-# Example:
-#    is not a diamond
-HAS_WIDECHARS="false"
-# Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  source /usr/share/zsh/manjaro-zsh-prompt
-fi
+_zcache mise    mise activate zsh
+_zcache zoxide  zoxide init zsh --cmd cd
+_zcache fzf     fzf --zsh
+_zcache starship starship init zsh --print-full-init
 
-# Custom aliases
+_zsrc $ZDOTDIR_CFG/keybinds.zsh
+_zsrc $ZDOTDIR_CFG/local.zsh   # untracked machine-specific overrides
 
-# Zed Editor
-alias zed='zeditor'
-
-# Clipboard Alias
-alias clip='xclip -selection clipboard'
-
-# General Listing and Navigation
-alias ll='ls -lh --color=auto'
-alias la='ls -lha --color=auto'
-alias l='ls -CF --color=auto'
-alias ..='cd ..'
-alias ...='cd ../..'
-
-# Package Management (Pacman)
-alias update='sudo pacman -Syu'
-alias install='sudo pacman -S'
-alias search='pacman -Ss'
-alias remove='sudo pacman -Rs'
-alias clean='sudo pacman -Sc'
-
-# Safety and Convenience
-alias c='clear'
-alias grep='grep --color=auto'
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias rm='rm -i'
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-eval "$(mise activate zsh)"
+unfunction _zsrc _zcache

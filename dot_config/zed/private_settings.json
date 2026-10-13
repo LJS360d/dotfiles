@@ -7,50 +7,132 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "disable_ai": false,
-  "edit_predictions": {
-    "mode": "subtle",
-    "copilot": {
-      "proxy": null,
-      "proxy_no_verify": null,
-      "enterprise_uri": null,
-    },
-    "enabled_in_text_threads": false,
-  },
-  "project_panel": {
-    "hide_gitignore": false,
-  },
-  "icon_theme": "Colored Zed Icons Theme Dark",
-  "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  // --- Appearance ---
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Mocha - No Italics",
+    "dark": "GitHub Dark High Contrast",
+  },
+  "icon_theme": "Material Icon Theme",
+  "ui_font_size": 16,
+  "buffer_font_family": "FiraCode Nerd Font Mono",
+  "buffer_font_size": 16,
+  "terminal": {
+    "font_family": "FiraCode Nerd Font Mono",
+  },
+
+  // --- Editor ---
+  "base_keymap": "VSCode",
+  "tab_size": 2,
+  "soft_wrap": "editor_width",
+  "show_wrap_guides": true,
+  "show_whitespaces": "trailing",
+  "close_on_file_delete": false,
+  "cli_default_open_behavior": "existing_window",
+  "diff_view_style": "split",
+  "minimum_split_diff_width": 0,
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
+
+  // --- Panels ---
+  "project_panel": {
+    "dock": "left",
+    "hide_gitignore": false,
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "right",
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": true,
+    "group_by": "none",
+  },
+
+  // --- Privacy ---
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+
+  // --- AI ---
+  "disable_ai": false,
+  "edit_predictions": {
+    "provider": "zed",
+    "mode": "subtle",
+  },
+  "language_models": {
+    "open_router": {
+      "api_url": "https://openrouter.ai/api/v1",
+    },
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
   },
   "agent": {
-    "profiles": {
-      "testing": {
-        "name": "Testing",
-        "tools": {
-          "read_file": true
-        },
-        "enable_all_context_servers": false,
-        "context_servers": {}
-      }
+    "enabled": false,
+    "dock": "right",
+    "threads_sidebar": {
+      "position": "right",
     },
-    "play_sound_when_agent_done": true,
-    "enable_feedback": false,
-    "always_allow_tool_actions": false,
-    "default_profile": "ask",
+    "default_profile": "write",
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash-lite",
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "enable_thinking": true,
     },
-    "enabled": true,
+    "inline_assistant_model": {
+      "provider": "openrouter",
+      "model": "minimax/minimax-m2.5",
+      "enable_thinking": false,
+    },
+    "tool_permissions": {
+      "default": "confirm",
+    },
+    "play_sound_when_agent_done": "always",
+    "enable_feedback": false,
   },
-  "features": {
-    "edit_prediction_provider": null,
+
+  // --- Languages & LSP ---
+  "languages": {
+    "Elixir": {
+      "inlay_hints": {
+        "enabled": true,
+      },
+      "language_servers": ["elixir-ls", "tailwindcss-language-server"],
+    },
+    "CSS": {
+      "language_servers": ["tailwindcss-language-server"],
+    },
+  },
+  "lsp": {
+    "vtsls": {
+      "enable_lsp_tasks": true,
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+      },
+    },
+    "discord_presence": {
+      "initialization_options": {
+        "details": "Stop stalking me",
+        "state": "you prick",
+      },
+    },
   },
 }

@@ -8,10 +8,10 @@
 #
 # --- General Settings ---
 
-# [shell]
+[terminal.shell]
 # # Command to execute when the terminal is started.
 # # Default: /usr/bin/zsh (or your default shell)
-# # program = "/usr/bin/bash"
+program = "/usr/bin/zsh"
 # # args = ["--login"]
 
 # [env]
@@ -197,6 +197,8 @@ key = "C"
 mods = "Control|Shift"
 chars = "\u0003"
 
+[terminal]
+
 # [[keyboard.bindings]]
 # key = "Key0"
 # mods = "Control"
@@ -217,3 +219,7 @@ chars = "\u0003"
 # # button = "Middle"
 # # mods = "None"
 # # action = "PasteSelection"
+
+[font]
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+size = 12.0

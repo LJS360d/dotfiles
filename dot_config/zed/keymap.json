@@ -1,79 +1,35 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
   {
-    "context": "Workspace",
+    "context": "Terminal",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == insert",
-    "bindings": {
-      // "j k": "vim::NormalBefore"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-shift-down": null
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-shift-down": null
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-shift-up": null
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-shift-up": "editor::AddSelectionAbove"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-shift-down": "editor::AddSelectionBelow"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-;": null
-    }
-  },
-  {
-    "context": "!ContextEditor > (Editor && mode == full)",
-    "bindings": {
-      "ctrl-:": null
-    }
-  },
-  {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-:": "workspace::NewTerminal"
-    }
-  },
-  {
-    "bindings": {
-      "ctrl-;": [
-        "workspace::OpenTerminal",
-        {
-          "working_directory": "current_project_directory"
-        }
+      "shift-enter": [
+        "terminal::SendText",
+        "\u001b\r"
       ]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-v": "terminal::Paste"
+    }
+  },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "ctrl-shift-v": "terminal::Paste"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-c": "terminal::Copy"
+    }
+  },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "ctrl-shift-c": "terminal::Copy"
     }
   },
   {
@@ -87,58 +43,29 @@
   },
   {
     "context": "Terminal",
-    "bindings": {
-      "ctrl-c": "terminal::Copy"
-    }
-  },
-  {
-    "context": "Terminal",
-    "bindings": {
-      "ctrl-v": "terminal::Paste"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "alt-shift-a": [
-        "editor::ToggleComments",
-        {
-          "advance_downwards": false
-        }
+    "unbind": {
+      "ctrl-c": [
+        "terminal::SendKeystroke",
+        "ctrl-c"
       ]
     }
   },
   {
-    "bindings": {
-      "ctrl-shift-w": null
+    "context": "Editor",
+    "unbind": {
+      "ctrl-;": "editor::ToggleLineNumbers"
     }
   },
   {
+    "context": "Workspace",
     "bindings": {
-      "ctrl-;": "terminal_panel::ToggleFocus"
+      "ctrl-;": "terminal_panel::Toggle"
     }
   },
   {
-    "context": "((Editor && mode == full) && edit_prediction)",
-    "bindings": {
-      "alt-v": "editor::NextEditPrediction"
-    }
-  },
-  {
-    "context": "(Editor && !edit_prediction)",
-    "bindings": {
-      "alt-x": "editor::ShowEditPrediction"
-    }
-  },
-  {
-    "context": "(Editor)",
-    "bindings": {
-      "ctrl-enter": "editor::NewlineBelow"
-    }
-  },
-  {
-    "bindings": {
-      "ctrl-k o": "snippets::OpenFolder"
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-`": "terminal_panel::Toggle"
     }
   }
 ]

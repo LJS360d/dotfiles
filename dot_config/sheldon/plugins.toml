@@ -1,0 +1,47 @@
+# Sheldon plugin list. Add a plugin = add a block. `sheldon lock --update` to upgrade.
+# Output is cached by ~/.zshrc; saving this file triggers a rebuild on next shell start.
+shell = "zsh"
+
+[templates]
+# load after first prompt via zsh-defer
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+# --- completion (must precede compinit) ---
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+apply = ["fpath"]
+
+[plugins.compinit]
+inline = '''
+autoload -Uz compinit
+# full check once a day, otherwise trust the (compiled) dump
+() {
+  local dump=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump
+  if [[ -n $dump(#qN.mh+24) ]]; then compinit -d $dump; else compinit -C -d $dump; fi
+  [[ $dump.zwc -nt $dump ]] || zcompile $dump
+}
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache
+'''
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
+# --- deferred (after first prompt) ---
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
+
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-history-substring-search]
+github = "zsh-users/zsh-history-substring-search"
+apply = ["defer"]
