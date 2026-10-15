@@ -1,5 +1,5 @@
 # Shell options, history, env
-export EDITOR=${EDITOR:-nvim}
+export EDITOR=${EDITOR:-nano}
 export PAGER=less
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 

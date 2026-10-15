@@ -22,7 +22,17 @@ alias ..='cd ..'
 alias ...='cd ../..'
 (( $+commands[bat] )) && alias cat='bat --paging=never --style=plain'
 
-# Pacman
+# Package manager (picked by distro at chezmoi apply)
+{{- $distro := list .chezmoi.osRelease.id | concat (splitList " " (.chezmoi.osRelease.idLike | default "")) }}
+{{- if has "debian" $distro }}
+alias update='sudo apt-get update && sudo apt-get upgrade'
+alias install='sudo apt-get install'
+alias search='apt-cache search'
+alias remove='sudo apt-get remove --autoremove'
+alias rmpkg='sudo apt-get purge --autoremove'
+alias clean='sudo apt-get autoclean'
+alias cleanch='sudo apt-get clean'
+{{- else if has "arch" $distro }}
 alias update='sudo pacman -Syu'
 alias install='sudo pacman -S'
 alias search='pacman -Ss'
@@ -31,6 +41,7 @@ alias rmpkg='sudo pacman -Rsn'
 alias clean='sudo pacman -Sc'
 alias cleanch='sudo pacman -Scc'
 alias fixpacman='sudo rm /var/lib/pacman/db.lck'
+{{- end }}
 alias jctl='journalctl -p 3 -xb'
 
 # Safety & convenience

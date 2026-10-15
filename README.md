@@ -1,6 +1,6 @@
 # dotfiles
 
-Managed with [chezmoi](https://www.chezmoi.io/). Targets Arch-based Linux (CachyOS) with GNOME.
+Managed with [chezmoi](https://www.chezmoi.io/).
 
 ```sh
 chezmoi init --apply <repo-url>
@@ -20,8 +20,9 @@ chezmoi init --apply <repo-url>
 | `git` | `.gitconfig` |
 | `git-delta` | git pager and diff filter (`core.pager = delta`) |
 | `alacritty` | terminal (`config/alacritty/`) |
-| `ttf-firacode-nerd` | `FiraCode Nerd Font Mono` in alacritty and zed; also needed for starship icons |
-| `nano` | `.nanorc` |
+| `nano` | `$EDITOR`, `.nanorc` |
+
+Fonts ship in this repo and land in `~/.local/share/fonts/`: `MesloLGS NF` (active) and `FiraCode Nerd Font Mono`. Switch by changing the family in `config/alacritty/alacritty.toml` and `config/zed/settings.json` (zed buffer + terminal).
 
 Sheldon fetches the zsh plugins itself on first shell start (`zsh-defer`, `zsh-completions`, `fzf-tab`, `zsh-autosuggestions`, `fast-syntax-highlighting`, `zsh-history-substring-search`), so there is nothing to install for those.
 
@@ -41,7 +42,6 @@ Sheldon fetches the zsh plugins itself on first shell start (`zsh-defer`, `zsh-c
 | `btop` | `top` alias |
 | `yazi` | `y` alias |
 | `tldr` | `help` alias |
-| `neovim` | `$EDITOR` default |
 | `xclip` | `clip` alias |
 | `docker` | `docker-deepclean` alias |
 | `ninja` | `n` alias |
@@ -67,8 +67,31 @@ Refresh the file after tweaking settings: `dconf dump /org/gnome/shell/extension
 
 ```sh
 sudo pacman -S --needed chezmoi zsh sheldon starship mise zoxide fzf git git-delta \
-  alacritty ttf-firacode-nerd nano \
-  eza bat fd ripgrep duf dust procs btop yazi tldr neovim xclip
+  alacritty nano \
+  eza bat fd ripgrep duf dust procs btop yazi tldr xclip
+```
+
+### Debian / Ubuntu (24.04+)
+
+apt covers most of it; the rest comes from upstream installers into `~/.local/bin` (make sure it is on `PATH`).
+
+```sh
+sudo apt install zsh zoxide git git-delta alacritty nano \
+  eza bat fd-find ripgrep duf btop tldr xclip curl
+
+mkdir -p ~/.local/bin
+# Debian renames these binaries; the aliases look for the upstream names
+ln -sf /usr/bin/batcat ~/.local/bin/bat
+ln -sf /usr/bin/fdfind ~/.local/bin/fd
+
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+curl -sS https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin
+curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh \
+  | bash -s -- --repo rossmacarthur/sheldon --to ~/.local/bin
+curl https://mise.run | sh
+~/.local/bin/mise use -g fzf dust procs yazi  # apt fzf is too old for `fzf --zsh` (needs 0.48+)
+
+chsh -s "$(command -v zsh)"
 ```
 
 ## Local overrides

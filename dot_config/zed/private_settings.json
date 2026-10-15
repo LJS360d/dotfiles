@@ -11,14 +11,15 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "GitHub Dark High Contrast",
+    "dark": "Snazzy Theme",
   },
   "icon_theme": "Material Icon Theme",
-  "ui_font_size": 16,
-  "buffer_font_family": "FiraCode Nerd Font Mono",
+  "ui_font_size": 16.0,
+  // also shipped: "FiraCode Nerd Font Mono" (keep alacritty in sync)
+  "buffer_font_family": "MesloLGS NF",
   "buffer_font_size": 16,
   "terminal": {
-    "font_family": "FiraCode Nerd Font Mono",
+    "font_family": "MesloLGS NF",
   },
 
   // --- Editor ---

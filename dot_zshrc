@@ -11,7 +11,7 @@ ZCACHE=${XDG_CACHE_HOME:-~/.cache}/zsh
 # source file, (re)compiling to .zwc when stale (zsh auto-prefers fresh .zwc)
 _zsrc() {
   [[ -r $1 ]] || return
-  [[ $1.zwc -nt $1 ]] || zcompile $1 2>/dev/null
+  [[ $1.zwc -nt $1 ]] || zcompile $1
   source $1
 }
 
@@ -19,11 +19,12 @@ _zsrc() {
 _zcache() {
   local name=$1 bin=${commands[$2]} f=$ZCACHE/$1.zsh; shift
   [[ -n $bin ]] || return
-  if [[ ! -s $f || $bin -nt $f ]]; then "$@" >| $f 2>/dev/null; zcompile $f; fi
+  # failed command -> no cache, so its error shows again next shell instead of a silent empty cache
+  if [[ ! -s $f || $bin -nt $f ]]; then "$@" >| $f && zcompile $f || { rm -f $f; return 1 }; fi
   source $f
 }
 
-[[ ~/.zshrc.zwc -nt ~/.zshrc ]] || zcompile ~/.zshrc 2>/dev/null
+[[ ~/.zshrc.zwc -nt ~/.zshrc ]] || zcompile ~/.zshrc
 
 _zsrc $ZDOTDIR_CFG/options.zsh
 _zsrc $ZDOTDIR_CFG/aliases.zsh

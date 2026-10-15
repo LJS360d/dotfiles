@@ -221,5 +221,6 @@ chars = "\u0003"
 # # action = "PasteSelection"
 
 [font]
-normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+# also shipped: "FiraCode Nerd Font Mono" (keep zed in sync)
+normal = { family = "MesloLGS NF", style = "Regular" }
 size = 12.0
